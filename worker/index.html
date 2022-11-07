@@ -69,7 +69,7 @@
                         </div>
                         <div class="w3-col m4">
                             <br>
-                            <button class="w3-button w3-blue" onclick="worker1statusloop">Dev status</button>
+                            <button class="w3-button w3-blue" onclick="readstatus1">Dev status</button>
                         </div> 
                     </div>
                     <br>
@@ -182,17 +182,14 @@
     //ajax file read
     function worker1statusupdate(){
         setInterval(() => {
-            worker1statusloop
+            readstatus1
         }, 500);
     }
 
-    function worker1statusloop() {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-             document.getElementById("worker1status").innerHTML = this.responseText;
-         }
-        xhttp.open("GET", "./worker/0.status", true);
-        xhttp.send();
+    function readstatus1() {
+        $.get("file.txt", function (result, status, xhr) {
+            $("#worker1status").html(result);
+        });    
     }
 </script>
 
