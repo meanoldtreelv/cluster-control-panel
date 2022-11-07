@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/w3.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
-  <body style="background-color: grey">
+  <body style="background-color: grey" onload="worker1statusupdate()">
     <div class="w3-container">
         <div class="w3-row w3-light-gray" id="header">
             <div class="w3-col m2">
@@ -21,46 +21,82 @@
         </div>
         <div class="w3-row" id="tabs">
             <nav class="w3-sidebar w3-bar-block w3-light-grey" style="width:150px">
-                <!--
-                <button class="w3-bar-item w3-button" onclick="openCity(event, 'London')">London</button>
-                <button class="w3-bar-item w3-button" onclick="showtab-paris()">Paris</button>
-                <button class="w3-bar-item w3-button" onclick="openCity(event, 'Tokyo')">Tokyo</button>
-                -->
                 <button class="w3-bar-item w3-button" onclick="showtabstatus()">System Status</button>
                 <button class="w3-bar-item w3-button" onclick="showtabgpu()">GPU Status</button>
                 <button class="w3-bar-item w3-button" onclick="showtabcontrol()">Service Control</button>
-                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
-                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
-                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
-                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
-
             </nav>
             <div class="w3-col m8" style="padding-left: 170px;">
                 <br>
-                <!--
-                <div id="London" class="city">
-                    <h2>London</h2>
-                    <p>London is the capital of England.</p>
+                <div id="status" class="cluster w3-card w3-container w3-light-gray" style="width: 1024px ; height: 768px;display:none">
+                    <br>
+                    <iframe style="width:100%; height:90%;" src="./htop.html"></iframe>
                 </div>
-              
-                <div id="Paris" class="city" style="display:none">
-                    <h2>Paris</h2>
-                    <p>Paris is the capital of France.</p>
-                </div>
-              
-                <div id="Tokyo" class="city" style="display:none">
-                    <h2>Tokyo</h2>
-                    <p>Tokyo is the capital of Japan.</p>
-                </div>
-                -->
-                <div id="status" class="cluster w3-card w3-container w3-light-gray">
-                    embedded htop
-                </div>
-                <div id="gpu" class="cluster w3-card w3-container w3-light-gray" style="display:none">
-                    embedded watch nvidia-smi
+                <div id="gpu" class="cluster w3-card w3-container w3-light-gray" style="width: 1024px ; height: 768px; display:none">
+                    <br>
+                    <iframe style="width:100%; height:90%;" src="./smi.html"></iframe>
                 </div>  
-                <div id="control" class="cluster w3-card w3-container w3-light-gray" style="display:none">
-                    service statuses and controls
+                <div id="control" class="cluster w3-card w3-container w3-light-gray" style="width: 1024px;">
+                    <h2>Service Status and Controls</h2>
+                    <br>
+                    Audio to Text Workers:
+                    <br>
+                    <div id="worker0" class="w3-card w3-container">
+                        <div class="w3-col m2"><br>Worker 0</div>
+                        <div class="w3-col m2">
+                            <h4>Status: </h4> <p id="worker0status"></p>
+                        </div>
+                        <div class="w3-col m4">
+                            <br>
+                            <button class="w3-button w3-green w3-round" id="worker0start" autocomplete="off" onclick="worker0start()">Start</button>
+                            <button class="w3-button w3-red w3-round" id="worker0stop" autocomplete="off" onclick="worker0stop()" disabled>Stop</button>
+                        </div>
+                        <div class="w3-col m4">
+                            <br>
+                            <div id="fakeshell0" class="card w3-black" style="color:white">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="worker1" class="w3-card w3-container">
+                        <div class="w3-col m2"><br>Worker 1</div>
+                        <div class="w3-col m2">
+                            <h4>Status: </h4> <p id="worker1status"></p>
+                        </div>
+                        <div class="w3-col m4">
+                            <br>
+                            <button class="w3-button w3-green w3-round" id="worker1start" autocomplete="off" onclick="worker1start()">Start</button>
+                            <button class="w3-button w3-red w3-round" id="worker1stop" autocomplete="off" onclick="worker1stop()" disabled>Stop</button>
+                        </div>
+                        <div class="w3-col m4">
+                            <br>
+                            <button class="w3-button w3-blue" onclick="worker1statusloop">Dev status</button>
+                        </div> 
+                    </div>
+                    <br>
+                    <div id="worker2" class="w3-card w3-container">
+                        <div class="w3-col m2"><br>Worker 2</div>
+                        <div class="w3-col m2">
+                            <h4>Status: </h4> <p id="worker2status"></p>
+                        </div>
+                        <div class="w3-col m4">
+                            <br>
+                            <button class="w3-button w3-green w3-round" id="worker2start" autocomplete="off" onclick="worker2start()">Start</button>
+                            <button class="w3-button w3-red w3-round" id="worker2stop" autocomplete="off" onclick="worker2stop()" disabled>Stop</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="worker3" class="w3-card w3-container">
+                        <div class="w3-col m2"><br>Worker 3</div>
+                        <div class="w3-col m2">
+                            <h4>Status: </h4> <p id="worker3status"></p>
+                        </div>
+                        <div class="w3-col m4">
+                            <br>
+                            <button class="w3-button w3-green w3-round" id="worker3start" autocomplete="off" onclick="worker3start()">Start</button>
+                            <button class="w3-button w3-red w3-round" id="worker3stop" autocomplete="off" onclick="worker3stop()" disabled>Stop</button>
+                        </div>
+                    </div>
+                    <br>
                 </div>
             </div>
         </div>    
@@ -68,6 +104,7 @@
   </body>
 
   <script>
+    //tab controls
     /*
     function showtab-paris(){
           $('.city').hide();
@@ -88,4 +125,147 @@
           $('.cluster').hide();
           $('#control').show();
     }
-  </script>
+</script>
+<script>
+    //status tracker
+    var worker0status = 'OFFLINE';
+    var worker2status = 'OFFLINE';
+    var worker3status = 'OFFLINE';
+    document.getElementById('worker0status').innerHTML = worker0status;
+    document.getElementById('worker2status').innerHTML = worker2status;
+    document.getElementById('worker3status').innerHTML = worker3status;
+</script>
+<script>
+    //start controls
+    function worker0start(){
+        $("#worker0start").prop('disabled', true);
+        var worker0status = 'STARTING';
+        document.getElementById('worker0status').innerHTML = worker0status;
+        devstart0()
+
+    }
+    function worker1start(){
+        $("#worker1start").prop('disabled', true);
+        $("#worker1stop").prop('disabled', false);
+    }
+    function worker2start(){
+        $("#worker2start").prop('disabled', true);
+        $("#worker2stop").prop('disabled', false);
+    }
+    function worker3start(){
+        $("#worker3start").prop('disabled', true);
+        $("#worker3stop").prop('disabled', false);
+    }
+</script>
+<script>
+    //start controls
+    function worker0stop(){
+        $("#worker0stop").prop('disabled', true);
+        var worker0status = 'STOPPING';
+        document.getElementById('worker0status').innerHTML = worker0status;
+        setTimeout(devstop0,2000)
+    }
+    function worker1stop(){
+        $("#worker1stop").prop('disabled', true);
+        $("#worker1start").prop('disabled', false);
+    }
+    function worker2stop(){
+        $("#worker2stop").prop('disabled', true);
+        $("#worker2start").prop('disabled', false);
+    }
+    function worker3stop(){
+        $("#worker3stop").prop('disabled', true);
+        $("#worker3start").prop('disabled', false);
+    }
+</script>
+<script>
+    //ajax file read
+    function worker1statusupdate(){
+        setInterval(() => {
+            worker1statusloop
+        }, 500);
+    }
+
+    function worker1statusloop() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+             document.getElementById("worker1status").innerHTML = this.responseText;
+         }
+        xhttp.open("GET", "./worker/0.status", true);
+        xhttp.send();
+    }
+</script>
+
+
+
+<script>
+    //dev timer function
+
+    var shellstop = 1
+
+    function devstart0(){
+        var worker0status = 'STARTING';
+        document.getElementById('worker0status').innerHTML = worker0status;
+        fakeshellstart()
+    }
+    function devstop0(){
+        fakeshellstop()
+        var worker1status = 'OFFLINE';
+        document.getElementById('worker0status').innerHTML = worker0status;
+
+    }
+
+    function fakeshellstart(){
+        document.getElementById('fakeshell0').innerHTML = 'Starting transcription module...';
+        setTimeout(fs1,1000);
+        setTimeout(fs2,4000);
+        setTimeout(fs3,5000);
+        setTimeout(fakeshellloop,6000);
+    }
+
+    function fs1(){
+        document.getElementById('fakeshell0').innerHTML = 'Loading model into vram, please wait...'
+    }
+    
+    function fs2(){
+        document.getElementById('fakeshell0').innerHTML = 'Starting Message Reciever...'
+    }
+    function fs3(){
+        var worker0status = 'ONLINE';
+        document.getElementById('worker0status').innerHTML = worker0status;
+        $("#worker0stop").prop('disabled', false);
+        document.getElementById('fakeshell0').innerHTML = 'Waiting on New Message...'
+    }
+    
+    function fs5(){
+        document.getElementById('fakeshell0').innerHTML = 'Transcoding 1667845894-5551239876.wav'
+    }
+    function fs6(){
+        document.getElementById('fakeshell0').innerHTML = 'Waiting on New Message...'
+    }
+
+    function fs0(){
+        document.getElementById('fakeshell0').innerHTML = ''
+        var worker0status = 'OFFLINE';
+        $("#worker0start").prop('disabled', false);
+        document.getElementById('worker0status').innerHTML = worker0status;
+    }
+    
+    function fakeshellstop(){
+        var shellstop = 1;
+        var worker0status = 'STOPPING';
+        document.getElementById('worker0status').innerHTML = worker0status;
+        document.getElementById('fakeshell0').innerHTML = 'Shutting Down...';
+        setTimeout(fs0,2000)
+    }
+
+    function fakeshellloop(){
+        shellstop = 0
+        while (shellstop = 0) {
+            document.getElementById('fakeshell0').innerHTML = 'Messaged Recieved, fetching 1667845894-5551239876.wav';
+            setTimeout(fs5,4000);
+            setTimeout(fs6,5000);
+        }
+        
+    }
+</script>
