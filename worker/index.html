@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/w3.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
-  <body style="background-color: grey" onload="worker1statusupdate()">
+  <body style="background-color: grey" >
     <div class="w3-container">
         <div class="w3-row w3-light-gray" id="header">
             <div class="w3-col m2">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="w3-col m4">
                             <br>
-                            <button class="w3-button w3-blue" onclick="readstatus1">Dev status</button>
+                            <button class="w3-button w3-blue" id="read1status">Dev status</button>
                         </div> 
                     </div>
                     <br>
@@ -180,19 +180,12 @@
 </script>
 <script>
     //ajax file read
-    function worker1statusupdate(){
-        setInterval(() => {
-            readstatus1
-        }, 500);
-    }
-
-    function readstatus1() {
-            $("#worker1status").load("./file.txt");  
-    }
+    $(document).ready(function () {
+        $('#read1status').click(function(){
+            $('#worker1status').load( 'file.txt' );
+        });
+    });
 </script>
-
-
-
 <script>
     //dev timer function
 
