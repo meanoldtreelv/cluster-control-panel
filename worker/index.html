@@ -187,9 +187,7 @@
     }
 
     function readstatus1() {
-        $.get("file.txt", function (result, status, xhr) {
-            $("#worker1status").html(result);
-        });    
+            $("#worker1status").load("./file.txt");  
     }
 </script>
 
