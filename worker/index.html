@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Cluster Control Panel</title>
+    <link rel="stylesheet" href="./css/cluster.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/w3.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body style="background-color: grey">
+    <div class="w3-container">
+        <div class="w3-row w3-light-gray" id="header">
+            <div class="w3-col m2">
+                &nbsp;
+            </div>
+            <div class="w3-col m5">
+                <h1>Cluster Control Panel</h1>
+            </div>
+        </div>
+        <div class="w3-row" id="tabs">
+            <nav class="w3-sidebar w3-bar-block w3-light-grey" style="width:150px">
+                <!--
+                <button class="w3-bar-item w3-button" onclick="openCity(event, 'London')">London</button>
+                <button class="w3-bar-item w3-button" onclick="showtab-paris()">Paris</button>
+                <button class="w3-bar-item w3-button" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                -->
+                <button class="w3-bar-item w3-button" onclick="showtabstatus()">System Status</button>
+                <button class="w3-bar-item w3-button" onclick="showtabgpu()">GPU Status</button>
+                <button class="w3-bar-item w3-button" onclick="showtabcontrol()">Service Control</button>
+                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
+                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
+                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
+                <button class="w3-bar-item w3-button" onclick="showtabstatus()">Status</button>
+
+            </nav>
+            <div class="w3-col m8" style="padding-left: 170px;">
+                <br>
+                <!--
+                <div id="London" class="city">
+                    <h2>London</h2>
+                    <p>London is the capital of England.</p>
+                </div>
+              
+                <div id="Paris" class="city" style="display:none">
+                    <h2>Paris</h2>
+                    <p>Paris is the capital of France.</p>
+                </div>
+              
+                <div id="Tokyo" class="city" style="display:none">
+                    <h2>Tokyo</h2>
+                    <p>Tokyo is the capital of Japan.</p>
+                </div>
+                -->
+                <div id="status" class="cluster w3-card w3-container w3-light-gray">
+                    embedded htop
+                </div>
+                <div id="gpu" class="cluster w3-card w3-container w3-light-gray" style="display:none">
+                    embedded watch nvidia-smi
+                </div>  
+                <div id="control" class="cluster w3-card w3-container w3-light-gray" style="display:none">
+                    service statuses and controls
+                </div>
+            </div>
+        </div>    
+    </div>
+  </body>
+
+  <script>
+    /*
+    function showtab-paris(){
+          $('.city').hide();
+          $('#Paris').show();
+        }
+    */
+    function showtabstatus(){
+          $('.cluster').hide();
+          $('#status').show();
+    }
+    
+    function showtabgpu(){
+          $('.cluster').hide();
+          $('#gpu').show();
+    }
+    
+    function showtabcontrol(){
+          $('.cluster').hide();
+          $('#control').show();
+    }
+  </script>
