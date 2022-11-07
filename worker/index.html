@@ -68,8 +68,6 @@
                             <button class="w3-button w3-red w3-round" id="worker1stop" autocomplete="off" onclick="worker1stop()" disabled>Stop</button>
                         </div>
                         <div class="w3-col m4">
-                            <br>
-                            <button class="w3-button w3-blue" id="read1status">Dev status</button>
                         </div> 
                     </div>
                     <br>
@@ -105,12 +103,6 @@
 
   <script>
     //tab controls
-    /*
-    function showtab-paris(){
-          $('.city').hide();
-          $('#Paris').show();
-        }
-    */
     function showtabstatus(){
           $('.cluster').hide();
           $('#status').show();
@@ -129,11 +121,7 @@
 <script>
     //status tracker
     var worker0status = 'OFFLINE';
-    var worker2status = 'OFFLINE';
-    var worker3status = 'OFFLINE';
     document.getElementById('worker0status').innerHTML = worker0status;
-    document.getElementById('worker2status').innerHTML = worker2status;
-    document.getElementById('worker3status').innerHTML = worker3status;
 </script>
 <script>
     //start controls
@@ -180,21 +168,15 @@
 </script>
 <script>
     //ajax file read
-    
-    //onlcick for dev button
-    $(document).ready(function () {
-        $('#read1status').click(function(){
-            $('#worker1status').load( 'file.txt' );
-        });
-    });
-
     // via timer
     $(document).ready(function () {
-    setInterval(statusq,500);
+    setInterval(workerstatus,500);
     })
 
-    function statusq(){
-            $('#worker1status').load( 'file.txt' );
+    function workerstatus(){
+            $('#worker1status').load( './workers/1.status' );
+            $('#worker2status').load( './workers/2.status' );
+            $('#worker3status').load( './workers/3.status' );
     }
 </script>
 <script>
